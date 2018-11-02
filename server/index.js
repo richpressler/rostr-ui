@@ -14,6 +14,6 @@ app.engine('html', ejs.renderFile);
 app.use(express.static(distPath));
 app.use(logger('dev'));
 
-app.get('*', (req, res) => res.render('index.html'));
+app.get('*', (req, res) => res.render(distPath + '/index.html'));
 
 app.listen(PORT, () => console.log(`App listening on port ${PORT}`));

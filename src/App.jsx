@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import { Home } from './Home';
 import { Dashboard } from './Dashboard';
+import { SendWelcome } from './SendWelcome';
 
 export class App extends React.Component {
   render() {
@@ -10,6 +11,7 @@ export class App extends React.Component {
       <Switch>
         <Route exact path="/" component={Home}></Route>
         <Route path="/dashboard" component={Dashboard}></Route>
+        <Route exact path="/send-welcome/:client/:recipients" component={SendWelcome}></Route>
       </Switch>
     );
   }

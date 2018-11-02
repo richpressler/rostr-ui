@@ -25,6 +25,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       hash: true,
       title: 'Rostr',
+      inject: false,
       template: './src/index.html',
       filename: './index.html' //relative to root of the application
     })
