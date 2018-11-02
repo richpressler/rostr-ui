@@ -8,11 +8,15 @@ import { SendWelcome } from './SendWelcome';
 export class App extends React.Component {
   render() {
     return (
-      <Switch>
-        <Route exact path="/" component={Home}></Route>
-        <Route path="/dashboard" component={Dashboard}></Route>
-        <Route exact path="/send-welcome/:client/:recipients" component={SendWelcome}></Route>
-      </Switch>
+      <div>
+        <div className="content">
+          <Switch>
+            <Route exact path="/" component={Home}></Route>
+            <Route path="/dashboard" component={Dashboard}></Route>
+            <Route exact path="/send-welcome/:client/:recipients" component={SendWelcome}></Route>
+          </Switch>
+        </div>
+      </div>
     );
   }
 }

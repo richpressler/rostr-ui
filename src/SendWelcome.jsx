@@ -1,5 +1,6 @@
 import React from 'react';
 import { LabelledTextArea } from './LabelledTextArea';
+import { ProjectRoster } from './ProjectRoster';
 import { fetchJSON } from './utilities';
 
 export class SendWelcome extends React.Component {
@@ -14,21 +15,21 @@ export class SendWelcome extends React.Component {
       needToKnow: '',
       whenWhereToWork: '',
       context: '',
-      staffAtClient: '',
+      staffAtClient: [],
       yourTeam: '',
       timeTracking: '',
       questions: '',
       recipients,
-      currentTeamEmployees: []
+      currentTeamEmployees: [],
+      projectName: ''
     };
 
     this.labels = {
-      introduction: 'Introduction',
-      needToKnow: `Welcome to ${clientName} - Everything You Need to Know`,
-      whenWhereToWork: 'When and Where Should I Work?',
+      introduction: 'Greeting',
+      whenWhereToWork: 'Where/when should I work?',
       context: 'Context',
       staffAtClient: `Rocket Folks at ${clientName}`,
-      yourTeam: 'Your Team',
+      yourTeam: `Your team at ${clientName}`,
       timeTracking: 'Time Tracking',
       question: 'Questions?'
     };
@@ -53,7 +54,13 @@ export class SendWelcome extends React.Component {
     }
 
     const searchNextOn = currentClientEmployees || employeesWithProjectData;
-    const currentTeamEmployees = searchNextOn.filter(emp => emp.currentProject === targetEmployee.currentProject);
+    let currentTeamEmployees = searchNextOn.filter(emp => emp.currentProject === targetEmployee.currentProject);
+    currentTeamEmployees = currentTeamEmployees.map(emp => {
+      const employmentData = employeesWithEmploymentData.find(data => data.name.toLowerCase() === emp.name.toLowerCase());
+      emp.role = employmentData ? employmentData.role : '';
+      return emp;
+    });
+    console.log(currentTeamEmployees);
     const teamText = currentTeamEmployees.reduce((text, member) => {
       const employmentData = employeesWithEmploymentData.find(emp => emp.name.toLowerCase() === member.name.toLowerCase());
       text += `${member.name}`;
@@ -64,8 +71,22 @@ export class SendWelcome extends React.Component {
     this.setState({
       staffAtClient: clientText,
       yourTeam: teamText,
-      currentTeamEmployees
+      currentTeamEmployees,
+      projectName: targetEmployee.currentProject
     });
+  }
+
+  getRecipientNames() {
+    const recipients = this.state.recipients;
+    return recipients.reduce((text, recipient, i) => {
+      const firstName = recipient.split(' ')[0];
+      if (recipients.length === 2 && i === 0) {
+        text += `${firstName} `;
+      } else {
+        text += i === recipients.length - 1 ? `and ${firstName}` : `${firstName}, `;
+      }
+      return text;
+    }, '');
   }
 
   handleFieldUpdate(fieldName, value) {
@@ -88,15 +109,21 @@ export class SendWelcome extends React.Component {
   render() {
     return (
       <div>
-        <h1>Send Welcome Email</h1>
-        {Object.keys(this.labels).map(fieldName => 
-            <LabelledTextArea
-              key={fieldName}
-              label={this.labels[fieldName]}
-              value={this.state[fieldName]}
-              onChange={newValue => this.handleFieldUpdate(fieldName, newValue)}/>
-        )}
-        <button onClick={() => this.submit()}>Send</button>
+        <div className="send-email-roster">
+          <ProjectRoster members={this.state.currentTeamEmployees} projectName={this.state.projectName}/>
+        </div>
+        <div className="send-email-content">
+          <h1 className="send-email-header">Project Intro</h1>
+          <p className="send-email-help-text">Fill out the fields below to craft an introductory email for {this.getRecipientNames()}</p>
+          {Object.keys(this.labels).map(fieldName => 
+              <LabelledTextArea
+                key={fieldName}
+                label={this.labels[fieldName]}
+                value={this.state[fieldName]}
+                onChange={newValue => this.handleFieldUpdate(fieldName, newValue)}/>
+          )}
+          <button className="button-action" onClick={() => this.submit()}>Next - Review</button>
+        </div>
       </div>
     );
   }

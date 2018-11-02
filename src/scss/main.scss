@@ -1,0 +1,99 @@
+$color-soft: #565656;
+
+body {
+  font-family: Roboto;
+}
+
+.content {
+  padding: 40px 30px 0 30px;
+  color: $color-soft;
+  background-color: #FBFAFA;
+}
+
+.send-email-roster {
+  width: 510px;
+  display: inline-block;
+  vertical-align: top;
+
+  .roster-header {
+    color: $color-soft;
+  }
+
+  .roster-member-container {
+    height: 80px;
+    width: 400px;
+    padding-left: 20px;
+    border-bottom: 1px solid #EDECEC;
+
+    .roster-member-inner-container {
+      height: 60px;
+      padding-top: 10px;
+
+      .roster-avatar-container {
+        display: inline-block;
+
+        .roster-avatar {
+          border-radius: 50%;
+        }
+      }
+      
+      .roster-info-container {
+        display: inline-block;
+        vertical-align: top;
+        margin: 10px 0 0 10px;
+        color: $color-soft;
+
+        .roster-name {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .roster-member-container:first-child {
+    border-top: 1px solid #EDECEC;
+  }
+}
+
+.send-email-content {
+  width: 600px;
+  display: inline-block;
+
+  .send-email-header {
+    color: $color-soft;
+  }
+
+  .send-email-help-text {
+    margin-bottom: 40px;
+  }
+
+  .text-area-label {
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #EDECEC;
+  }
+
+  .text-area {
+    width: 100%;
+    background-color: #FBFAFA;
+    border: none;
+    font-size: 16px;
+  }
+  .text-area::placeholder {
+    color: #A9A9A9;
+  }
+  .text-area:focus {
+    outline: none;
+  }
+}
+
+.button-action {
+  float: right;
+  border: none;
+  background-color: #00B3E3;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 5px;
+}

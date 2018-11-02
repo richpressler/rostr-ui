@@ -20,6 +20,8 @@
     "react-dom": "^16.6.0",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
+    "sass": "^1.14.3",
+    "scss": "^0.2.4",
     "webpack": "^4.24.0",
     "webpack-cli": "^3.1.2"
   },
@@ -30,9 +32,9 @@
     ]
   },
   "scripts": {
-    "build": "./node_modules/.bin/webpack",
+    "build": "./node_modules/.bin/webpack && ./node_modules/.bin/scss ./src/sass/main.scss ./dist/styles.css",
     "start": "yarn && yarn build && node server",
-    "build:dev": "./node_modules/.bin/webpack -w",
+    "build:dev": "./node_modules/.bin/concurrently \"./node_modules/.bin/webpack -w\" \"./node_modules/.bin/sass --watch ./src/scss/main.scss ./dist/styles.css\"",
     "start:dev": "./node_modules/.bin/concurrently \"yarn build:dev\" \"node server\""
   }
 }
