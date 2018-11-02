@@ -32,9 +32,9 @@
     ]
   },
   "scripts": {
-    "build": "./node_modules/.bin/webpack && ./node_modules/.bin/sass ./src/scss/main.scss ./dist/styles.css",
+    "build": "./node_modules/.bin/webpack && ./node_modules/.bin/sass ./src/scss/main.scss ./dist/styles.css && cp ./src/img/*.* ./dist",
     "start": "yarn && yarn build && node server",
-    "build:dev": "./node_modules/.bin/concurrently \"./node_modules/.bin/webpack -w\" \"./node_modules/.bin/sass --watch ./src/scss/main.scss ./dist/styles.css\"",
+    "build:dev": "cp ./src/img/*.* ./dist && ./node_modules/.bin/concurrently \"./node_modules/.bin/webpack -w\" \"./node_modules/.bin/sass --watch ./src/scss/main.scss ./dist/styles.css\"",
     "start:dev": "./node_modules/.bin/concurrently \"yarn build:dev\" \"node server\""
   }
 }

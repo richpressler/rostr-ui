@@ -6,9 +6,13 @@ import { Dashboard } from './Dashboard';
 import { SendWelcome } from './SendWelcome';
 
 export class App extends React.Component {
+
   render() {
     return (
       <div>
+        <div className="header">
+          <img className="logo" src="/Logo.svg"></img>
+        </div>
         <div className="content">
           <Switch>
             <Route exact path="/" component={Home}></Route>
