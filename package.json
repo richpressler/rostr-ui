@@ -31,7 +31,7 @@
   },
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "start": "yarn install && yarn build && node server",
+    "start": "yarn && yarn build && node server",
     "build:dev": "./node_modules/.bin/webpack -w",
     "start:dev": "./node_modules/.bin/concurrently \"yarn build:dev\" \"node server\""
   }
